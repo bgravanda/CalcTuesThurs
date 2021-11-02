@@ -8,6 +8,7 @@ import org.controlsfx.control.action.Action;
 
 public class CalcWindow {
     private int storedNumber;
+    private OperatorType lastOp;
     @FXML
     private TextField numberDisplay;
 
@@ -24,14 +25,41 @@ public class CalcWindow {
         var numberText = numberDisplay.getText();
         storedNumber = Integer.parseInt(numberText);
         numberDisplay.clear();
-
+        lastOp =OperatorType.Add;
+    }
+    @FXML
+    public void subtractButtonPressed(){
+        var numberText = numberDisplay.getText();
+        storedNumber = Integer.parseInt(numberText);
+        numberDisplay.clear();
+        lastOp = OperatorType.Subtract;
+    }
+    @FXML
+    public void multiplyButtonPressed() {
+        var numberText = numberDisplay.getText();
+        storedNumber = Integer.parseInt(numberText);
+        numberDisplay.clear();
+        lastOp = OperatorType.Multiply;
+    }
+    @FXML
+    public void divideButtonPressed() {
+        var numberText = numberDisplay.getText();
+        storedNumber = Integer.parseInt(numberText);
+        numberDisplay.clear();
+        lastOp = OperatorType.Divide;
     }
     @FXML
     public void equalButtonPressed(){
+        double result = 0.0;
         var currentText =numberDisplay.getText();
         var currentNumber = Integer.parseInt(currentText);
-        var sum = storedNumber+currentNumber;
-        numberDisplay.setText(""+sum);
+        switch (lastOp){
+            case Add -> result = storedNumber+currentNumber;
+            case Subtract -> result = storedNumber - currentNumber;
+            case Multiply -> result = storedNumber * currentNumber;
+            case Divide -> result = storedNumber / currentNumber;
+        }
+        numberDisplay.setText(""+result);
     }
     @FXML
     public void clearButtonPressed(){
